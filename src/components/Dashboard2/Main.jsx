@@ -1,5 +1,4 @@
 import { useState } from "react";
-
 import StatCard from "../Dashboard/StatsCard";
 import BookStat from "./BookingStat";
 import Occupancy from "./OccupancyRate";
@@ -7,9 +6,8 @@ import BookedRooms from "./BookedRooms";
 import StatusTable from "./StatusTable";
 import Upcoming from "./Upcoming";
 
-
 export default function Main() {
-  const [stats] = useState([
+  const [stats, setStats] = useState([
     { 
       id: 'total-booking',
       value: 1054, 
@@ -44,8 +42,6 @@ export default function Main() {
     }
   ]);
 
-
-
   return (
     <div className="flex-1 overflow-y-auto p-4 sm:p-6 bg-gray-50 min-h-screen">
       <div className="mb-6">
@@ -78,7 +74,6 @@ export default function Main() {
         <Upcoming/>
         <StatusTable/>
       </div>
-
     </div>
   );
 }
