@@ -6,7 +6,7 @@ const spaces = [
     title: "Yearly",
     description: "Access our premium spaces all year round with exclusive perks and discounted rates.",
     image: "https://images.unsplash.com/photo-1497366811353-6870744d04b2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80",
-    price: "$299",
+    price: "₦299",
     period: "/month",
     features: ["All access pass", "24/7 availability", "Free meeting rooms", "Priority support", "Discount on events"],
     popular: true,
@@ -16,7 +16,7 @@ const spaces = [
     title: "Monthly",
     description: "Perfect for growing teams and freelancers who need consistent access every month.",
     image: "https://images.unsplash.com/photo-1568992687947-868a62a9f521?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80",
-    price: "$349",
+    price: "₦349",
     period: "/month",
     features: ["Flexible access", "Business address", "High-speed internet", "Complimentary drinks", "Community events"],
     popular: false,
@@ -26,7 +26,7 @@ const spaces = [
     title: "Weekly",
     description: "Flexible access tailored for short-term needs, workshops, and events.",
     image: "https://images.unsplash.com/photo-1592903297141-6b4b4c6c834e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80",
-    price: "$99",
+    price: "₦99",
     period: "/week",
     features: ["Pay as you go", "Day passes available", "Event space access", "Basic amenities", "Networking opportunities"],
     popular: false,
@@ -59,7 +59,7 @@ export default function Pricing() {
         {spaces.map((space, index) => (
           <div
             key={index}
-            className={`bg-white rounded-2xl shadow-lg hover:shadow-xl overflow-hidden transition-all duration-300 flex flex-col group relative ${
+            className={`bg-white rounded-2xl shadow-lg hover:shadow-xl overflow-hidden transition-all duration-300 flex flex-col group relative ₦{
               space.popular ? "ring-2 ring-blue-500 transform hover:-translate-y-1" : "border border-gray-100"
             }`}
             onMouseEnter={() => setHoveredCard(index)}
@@ -103,7 +103,7 @@ export default function Pricing() {
                 ))}
               </div>
               
-              <button className={`mt-auto w-full py-3 px-4 rounded-lg font-medium text-white transition-all ${
+              <button className={`mt-auto w-full py-3 px-4 rounded-lg font-medium text-white transition-all ₦{
                 space.popular 
                   ? "bg-blue-600 hover:bg-blue-700" 
                   : "bg-blue-600 hover:bg-blue-700"

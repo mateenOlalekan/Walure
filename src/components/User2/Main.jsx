@@ -1,8 +1,8 @@
-import {  LogOut, Bell, MessageSquare, Download, Filter,CheckCircle, XCircle, Clock4 } from "lucide-react";
+import { LogOut, Bell, MessageSquare, Download, Filter, CheckCircle, XCircle, Clock4 } from "lucide-react";
 import { useState } from "react";
 
 export default function Main() {
-    const [selected, setSelected] = useState();
+  const [selected, setSelected] = useState(null);
 
   // Sample data for payment history
   const paymentHistory = [
@@ -41,7 +41,7 @@ export default function Main() {
 
   // Simple calendar component
   const SimpleCalendar = () => {
-    const [currentDate, setCurrentDate] = useState();
+    const [currentDate, setCurrentDate] = useState(new Date());
     const today = new Date();
     
     const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -76,11 +76,15 @@ export default function Main() {
     const days = getDaysInMonth(currentDate);
 
     const prevMonth = () => {
-      setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1));
+      setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1));
     };
 
     const nextMonth = () => {
-      setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1));
+      setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1));
+    };
+
+    const handleDayClick = (day) => {
+      setSelected(day);
     };
 
     return (
@@ -108,9 +112,9 @@ export default function Main() {
         <div className="grid grid-cols-7 gap-1">
           {days.map((day, index) => (
             <div key={index} className="aspect-square">
-              {day && (
+              {day ? (
                 <button
-                  onClick={() => setSelected(day)}
+                  onClick={() => handleDayClick(day)}
                   className={`w-full h-full text-xs rounded hover:bg-blue-100 flex items-center justify-center ${
                     selected && selected.toDateString() === day.toDateString()
                       ? 'bg-blue-500 text-white'
@@ -121,6 +125,8 @@ export default function Main() {
                 >
                   {day.getDate()}
                 </button>
+              ) : (
+                <div className="w-full h-full" />
               )}
             </div>
           ))}
@@ -141,7 +147,7 @@ export default function Main() {
       <div className="grid grid-cols-1 lg:grid-cols-8 gap-4 lg:gap-6 p-4 lg:p-6 min-h-screen">
         
         {/* Left Section - Main Content */}
-        <div className=" lg:col-span-5 overflow-y-auto">
+        <div className="lg:col-span-5 overflow-y-auto">
           <div className="flex flex-col gap-4 sm:gap-6">
             {/* Welcome Section */}
             <div className="bg-white rounded-xl shadow-sm p-4 sm:p-6">
@@ -270,7 +276,7 @@ export default function Main() {
         </div>
 
         {/* Right Section - Sidebar */}
-        <div className=" lg:col-span-3 overflow-y-auto">
+        <div className="lg:col-span-3 overflow-y-auto">
           <div className="flex flex-col gap-4">
             {/* Calendar Section */}
             <div className="bg-white rounded-xl shadow-sm p-4 sm:p-6">

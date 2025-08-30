@@ -61,15 +61,14 @@ const RegisterPage = () => {
           
           {/* Content overlay */}
           <div className="relative z-10 text-white p-8 md:p-12 flex flex-col justify-center h-full">
-            <div className="mb-8">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="bg-white/20 backdrop-blur-sm rounded-lg p-2">
-                  <Calendar className="h-8 w-8 text-white" />
-                </div>
-                <h1 className="text-3xl md:text-4xl font-bold">EventBooker</h1>
-              </div>
-              <p className="text-white/90 text-lg">Premium event booking platform</p>
-            </div>
+          <div className="flex items-center mb-8 gap-2">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 flex items-center justify-center">
+            <span className="text-white font-bold text-lg">WP</span>
+          </div>
+          <span className="text-xl md:text-2xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            WorkspacePro
+          </span>
+        </div>
             
             <div className="mb-8">
               <h2 className="text-3xl md:text-4xl font-bold mb-6 leading-tight">

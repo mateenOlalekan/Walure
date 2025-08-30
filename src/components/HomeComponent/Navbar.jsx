@@ -1,155 +1,137 @@
-import { PhoneCall } from "lucide-react";
 import { useState, useEffect } from "react";
-import { BsPerson,  BsSearch } from "react-icons/bs";
+import { Link } from "react-router-dom";
+import { BsPerson, BsSearch } from "react-icons/bs";
+import { PhoneCall } from "lucide-react";
 import { FiHome, FiInfo, FiPieChart, FiDollarSign, FiMenu, FiX } from "react-icons/fi";
-import { Link, Links } from "react-router-dom";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const navLinks = [
+    { name: "Home", icon: <FiHome className="w-4 h-4" />, href: "#" },
+    { name: "About", icon: <FiInfo className="w-4 h-4" />, href: "#" },
+    { name: "Features", icon: <FiPieChart className="w-4 h-4" />, href: "#" },
+    { name: "Contact", icon: <PhoneCall className="w-4 h-4" />, href: "#" },
+    { name: "Pricing", icon: <FiDollarSign className="w-4 h-4" />, href: "#" },
+  ];
+
   return (
-    <nav className={`w-full fixed top-0 z-50 transition-all duration-300 ${isScrolled ? "bg-white/50 backdrop-blur-md shadow-lg py-4" : "bg-white py-4"}`}>
-      <div className="max-w-7xl mx-auto flex justify-between items-center max-md:px-4 ">
+    <nav
+      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+        isScrolled
+          ? "bg-white/80 backdrop-blur-lg shadow-md py-3"
+          : "bg-white py-4"
+      }`}
+    >
+      <div className="max-w-7xl mx-auto flex items-center justify-between px-4 lg:px-8">
         {/* Logo */}
-        <div className="flex items-center">
-          <div className="flex items-center">
-            <div className="w-10 h-10 rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 flex items-center justify-center mr-3">
-              <span className="text-white font-bold text-lg">WP</span>
-            </div>
-            <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              WorkspacePro
-            </span>
+        <Link to="/" className="flex items-center gap-2">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 flex items-center justify-center">
+            <span className="text-white font-bold text-lg">WP</span>
           </div>
+          <span className="text-xl md:text-2xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            WorkspacePro
+          </span>
+        </Link>
+
+        {/* Desktop Nav */}
+        <div className="hidden lg:flex items-center gap-8">
+          {navLinks.map((link, idx) => (
+            <a
+              key={idx}
+              href={link.href}
+              className="text-gray-700 relative font-medium flex items-center gap-1 hover:text-purple-600 transition-colors group"
+            >
+              {link.icon}
+              {link.name}
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-purple-600 transition-all group-hover:w-full"></span>
+            </a>
+          ))}
         </div>
-
-        {/* Desktop Navigation Links */}
-        <div className="hidden lg:flex justify-between items-center gap-8">
-          <a
-            href="#"
-            className="text-gray-700 hover:text-purple-600 font-medium transition-colors flex items-center gap-1 group relative"
-          >
-            <FiHome className="w-4 h-4" />
-            Home
-            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-purple-600 transition-all group-hover:w-full"></span>
-          </a>
-          <a
-            href="#"
-            className="text-gray-700 hover:text-purple-600 font-medium transition-colors flex items-center gap-1 group relative"
-          >
-            <FiInfo className="w-4 h-4" />
-            About
-            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-purple-600 transition-all group-hover:w-full"></span>
-          </a>
-          <a
-            href="#"
-            className="text-gray-700 hover:text-purple-600 font-medium transition-colors flex items-center gap-1 group relative"
-          >
-            <FiPieChart className="w-4 h-4" />
-            Features
-            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-purple-600 transition-all group-hover:w-full"></span>
-          </a>
-          <a
-            href="#"
-            className="text-gray-700 hover:text-purple-600 font-medium transition-colors flex items-center gap-1 group relative"
-          >
-            <PhoneCall className="w-4 h-4" />
-            Contact
-            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-purple-600 transition-all group-hover:w-full"></span>
-          </a>
-          <a
-            href="#"
-            className="text-gray-700 hover:text-purple-600 font-medium transition-colors flex items-center gap-1 group relative"
-          >
-            <FiDollarSign className="w-4 h-4" />
-            Pricing
-            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-purple-600 transition-all group-hover:w-full"></span>
-          </a>
-        </div>
-
-
 
         {/* Desktop Buttons */}
-        <div className="hidden md:flex justify-between items-center gap-4">
-
-          <Link to="/login" className="px-4 py-2 text-gray-600 hover:text-purple-600 font-medium transition-colors">
+        <div className="hidden md:flex items-center gap-4">
+          <Link
+            to="/login"
+            className="px-4 py-2 text-gray-600 hover:text-purple-600 font-medium transition"
+          >
             Login
           </Link>
-          <button className="px-5 py-2.5 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-medium hover:from-purple-700 hover:to-blue-700 transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+          <Link
+            to="/GetStart"
+            className="px-5 py-2.5 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-medium shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all"
+          >
             Get Started
+          </Link>
+          <button className="w-10 h-10 flex items-center justify-center rounded-full bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-md hover:from-purple-700 hover:to-blue-700 transition">
+            <BsPerson />
           </button>
-          <div className="w-10 h-10 flex items-center justify-center rounded-full bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:from-purple-700 hover:to-blue-700 transition-all shadow-md">
-            <BsPerson className="text-white" />
-          </div>
         </div>
 
-        {/* Mobile menu button */}
+        {/* Mobile Menu Button */}
         <button
-          className="md:hidden w-10 h-10 flex items-center justify-center rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
+          className="lg:hidden w-10 h-10 flex items-center justify-center rounded-lg bg-gray-100 hover:bg-gray-200 transition"
+          aria-label="Toggle Menu"
         >
-          {isMenuOpen ? <FiX className="w-5 h-5 text-gray-700" /> : <FiMenu className="w-5 h-5 text-gray-700" />}
+          {isMenuOpen ? (
+            <FiX className="w-6 h-6 text-gray-700" />
+          ) : (
+            <FiMenu className="w-6 h-6 text-gray-700" />
+          )}
         </button>
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="md:hidden bg-white py-6 px-6 shadow-xl absolute left-0 right-0 top-full animate-fadeIn">
-          <div className="flex flex-col gap-2">
-            <div className="mb-4 relative">
-              <div className="flex items-center bg-gray-100 rounded-lg px-3 py-2">
-                <BsSearch className="text-gray-500 mr-2" />
-                <input 
-                  type="text" 
-                  placeholder="Search..." 
-                  className="bg-transparent outline-none text-gray-700 w-full"
-                />
-              </div>
+        <div className="lg:hidden bg-white shadow-xl absolute left-0 right-0 top-full py-6 px-6 animate-fadeIn">
+          {/* Search */}
+          <div className="mb-5">
+            <div className="flex items-center bg-gray-100 rounded-lg px-3 py-2">
+              <BsSearch className="text-gray-500 mr-2" />
+              <input
+                type="text"
+                placeholder="Search..."
+                className="bg-transparent outline-none text-gray-700 w-full"
+              />
             </div>
-            
-            <a
-              href="#"
-              className="text-gray-700 hover:text-purple-600 font-medium py-3 transition-colors flex items-center gap-3 border-b border-gray-100"
-            >
-              <FiHome className="w-5 h-5" /> Home
-            </a>
-            <a
-              href="#"
-              className="text-gray-700 hover:text-purple-600 font-medium py-3 transition-colors flex items-center gap-3 border-b border-gray-100"
-            >
-              <FiInfo className="w-5 h-5" /> About
-            </a>
-            <a
-              href="#"
-              className="text-gray-700 hover:text-purple-600 font-medium py-3 transition-colors flex items-center gap-3 border-b border-gray-100"
-            >
-              <FiPieChart className="w-5 h-5" /> Features
-            </a>
-            <a
-              href="#"
-              className="text-gray-700 hover:text-purple-600 font-medium py-3 transition-colors flex items-center gap-3 border-b border-gray-100"
-            >
-              <FiDollarSign className="w-5 h-5" /> Pricing
-            </a>
+          </div>
 
-            {/* Mobile buttons */}
-            <div className="pt-4 mt-2 flex flex-col gap-3">
+          {/* Links */}
+          <div className="flex flex-col gap-3">
+            {navLinks.map((link, idx) => (
+              <a
+                key={idx}
+                href={link.href}
+                className="flex items-center gap-3 py-3 border-b border-gray-100 text-gray-700 hover:text-purple-600 font-medium transition"
+              >
+                {link.icon}
+                {link.name}
+              </a>
+            ))}
+          </div>
 
-              <Link to="/login" className="px-4 py-3 text-gray-600 hover:text-purple-600 font-medium transition-colors text-left border border-gray-200 rounded-lg">
-                Login
-              </Link>
-              <button className="px-4 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-medium hover:from-purple-700 hover:to-blue-700 transition-all shadow-md">
-                Get Started
-              </button>
-            </div>
+          {/* Mobile Buttons */}
+          <div className="mt-6 flex flex-col gap-3">
+            <Link
+              to="/login"
+              className="px-4 py-3 text-center border border-gray-200 rounded-lg text-gray-600 hover:text-purple-600 font-medium transition"
+            >
+              Login
+            </Link>
+            <Link
+              to="/GetStart"
+              className="px-4 py-3 text-center bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-medium shadow-md hover:from-purple-700 hover:to-blue-700 transition"
+            >
+              Get Started
+            </Link>
           </div>
         </div>
       )}

@@ -9,6 +9,7 @@ import User3 from "./pages/UserDashboard3.jsx";
 import User4 from "./pages/UserDashboard4.jsx";
 import Login from "./pages/Login.jsx";
 import RegisterPage from './pages/Register.jsx';
+import GetStart from "./pages/GetStarted.jsx"
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
         <Route path="/user4" element={<User4/>} />
         <Route path="/Login" element={<Login/>}/>
         <Route path="/Register" element={<RegisterPage/>}/>
+        <Route path="/GetStart" element={<GetStart/>}/>
       </Routes>
     </>
   );
