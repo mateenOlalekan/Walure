@@ -124,7 +124,7 @@ const ResponsiveSlider = () => {
 
       {/* Booking Form - Bottom Left */}
       <div className="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 lg:bottom-8 lg:left-8 z-20 w-[calc(100%-8rem)] max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:w-96">
-        <div className="bg-white bg-opacity-95 backdrop-blur-sm rounded-2xl p-2 sm:p-2 shadow-2xl">
+        <div className="bg-white bg-opacity-95 backdrop-blur-sm rounded-2xl p-4 sm:p-2 shadow-2xl">
           <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-800 mb-4 text-center">
             Find Your Workspace
           </h3>
