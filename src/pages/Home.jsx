@@ -15,7 +15,7 @@ function Home() {
       <Main/>
       <Pricing/>
       <Experience/>
-      <Footer/>
+      <Footer/> 
     </>
   )
 }
