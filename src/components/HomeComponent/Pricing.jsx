@@ -1,6 +1,6 @@
 import  { useState } from "react";
 import { CheckCircle, Star, Calendar, ArrowRight } from "lucide-react";
-
+import loung3 from "../../assets/hero/modern.webp"
 const spaces = [
   {
     title: "Yearly",
@@ -25,7 +25,7 @@ const spaces = [
   {
     title: "Weekly",
     description: "Flexible access tailored for short-term needs, workshops, and events.",
-    image: "https://images.unsplash.com/photo-1592903297141-6b4b4c6c834e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80",
+    image: loung3,
     price: "₦99",
     period: "/week",
     features: ["Pay as you go", "Day passes available", "Event space access", "Basic amenities", "Networking opportunities"],
@@ -42,7 +42,7 @@ export default function Pricing() {
     <section className="w-full flex flex-col items-center py-16 px-6 md:px-12 bg-gradient-to-b from-gray-50 to-white">
       {/* Section 1: Explore Spaces */}
       <div className="max-w-7xl w-full mb-16 text-center">
-        <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-blue-100 text-blue-700 text-sm font-medium mb-4">
+        <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-purple-100 text-purple-700 text-sm font-medium mb-4">
           <Calendar className="w-4 h-4 mr-2" />
           Flexible Booking Options
         </div>
@@ -60,13 +60,13 @@ export default function Pricing() {
           <div
             key={index}
             className={`bg-white rounded-2xl shadow-lg hover:shadow-xl overflow-hidden transition-all duration-300 flex flex-col group relative ₦{
-              space.popular ? "ring-2 ring-blue-500 transform hover:-translate-y-1" : "border border-gray-100"
+              space.popular ? "ring-2 ring-purple-500 transform hover:-translate-y-1" : "border border-gray-100"
             }`}
             onMouseEnter={() => setHoveredCard(index)}
             onMouseLeave={() => setHoveredCard(null)}
           >
             {space.popular && (
-              <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-blue-500 text-white px-4 py-1 rounded-full text-sm font-medium flex items-center">
+              <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-purple-500 text-white px-4 py-1 rounded-full text-sm font-medium flex items-center">
                 <Star className="w-4 h-4 mr-1 fill-current" />
                 Most Popular
               </div>
@@ -80,7 +80,7 @@ export default function Pricing() {
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              <div className="absolute bottom-4 left-4 bg-blue-600 text-white text-sm font-medium px-3 py-1 rounded-lg">
+              <div className="absolute bottom-4 left-4 bg-purple-600 text-white text-sm font-medium px-3 py-1 rounded-lg">
                 {space.savings}
               </div>
             </div>
@@ -97,16 +97,16 @@ export default function Pricing() {
               <div className="mb-6">
                 {space.features.map((feature, i) => (
                   <div key={i} className="flex items-center mb-2">
-                    <CheckCircle className="w-5 h-5 text-green-500 mr-2 flex-shrink-0" />
+                    <CheckCircle className="w-5 h-5 text-purple-500 mr-2 flex-shrink-0" />
                     <span className="text-gray-700 text-sm">{feature}</span>
                   </div>
                 ))}
               </div>
               
-              <button className={`mt-auto w-full py-3 px-4 rounded-lg font-medium text-white transition-all ₦{
+              <button className={`mt-auto w-full py-3 px-4 bg-purple-600 rounded-lg font-medium text-white transition-all ₦{
                 space.popular 
-                  ? "bg-blue-600 hover:bg-blue-700" 
-                  : "bg-blue-600 hover:bg-blue-700"
+                  ? "bg-purple-600 hover:bg-purple-700" 
+                  : "bg-purple-600 hover:bg-purple-700"
               } flex items-center justify-center group-hover:shadow-lg`}>
                 Book Space
                 <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />

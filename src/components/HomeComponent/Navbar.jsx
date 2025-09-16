@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { BsPerson, BsSearch } from "react-icons/bs";
 import { PhoneCall } from "lucide-react";
-import { FiHome, FiInfo, FiPieChart, FiDollarSign, FiMenu, FiX } from "react-icons/fi";
+import { FiHome, FiPieChart, FiDollarSign, FiMenu, FiX } from "react-icons/fi";
+
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -16,7 +16,6 @@ const Navbar = () => {
 
   const navLinks = [
     { name: "Home", icon: <FiHome className="w-4 h-4" />, href: "#" },
-    { name: "About", icon: <FiInfo className="w-4 h-4" />, href: "#" },
     { name: "Features", icon: <FiPieChart className="w-4 h-4" />, href: "#" },
     { name: "Contact", icon: <PhoneCall className="w-4 h-4" />, href: "#" },
     { name: "Pricing", icon: <FiDollarSign className="w-4 h-4" />, href: "#" },
@@ -26,18 +25,18 @@ const Navbar = () => {
     <nav
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-white/80 backdrop-blur-lg shadow-md py-3"
-          : "bg-white py-4"
+          ? "bg-transparent backdrop-blur-lg shadow-md py-3"
+          : "bg-transparent py-4"
       }`}
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between px-4 lg:px-8">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 flex items-center justify-center">
-            <span className="text-white font-bold text-lg">WP</span>
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-purple-600 to-purple-600 flex items-center justify-center">
+            <span className="text-white font-bold text-lg">WO</span>
           </div>
-          <span className="text-xl md:text-2xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-            WorkspacePro
+          <span className="text-xl md:text-2xl font-extrabold bg-gradient-to-r from-purple-600 to-purple-600 bg-clip-text text-transparent">
+            Wovora Online
           </span>
         </Link>
 
@@ -47,7 +46,7 @@ const Navbar = () => {
             <a
               key={idx}
               href={link.href}
-              className="text-gray-700 relative font-medium flex items-center gap-1 hover:text-purple-600 transition-colors group"
+              className="text-white relative font-medium flex items-center gap-1 hover:text-purple-600 transition-colors group"
             >
               {link.icon}
               {link.name}
@@ -66,13 +65,10 @@ const Navbar = () => {
           </Link>
           <Link
             to="/GetStart"
-            className="px-5 py-2.5 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-medium shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all"
+            className="px-5 py-2.5 bg-gradient-to-r from-purple-600 to-purple-600 text-white rounded-lg font-medium shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all"
           >
             Get Started
           </Link>
-          <button className="w-10 h-10 flex items-center justify-center rounded-full bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-md hover:from-purple-700 hover:to-blue-700 transition">
-            <BsPerson />
-          </button>
         </div>
 
         {/* Mobile Menu Button */}
@@ -92,17 +88,7 @@ const Navbar = () => {
       {/* Mobile Menu */}
       {isMenuOpen && (
         <div className="lg:hidden bg-white shadow-xl absolute left-0 right-0 top-full py-6 px-6 animate-fadeIn">
-          {/* Search */}
-          <div className="mb-5">
-            <div className="flex items-center bg-gray-100 rounded-lg px-3 py-2">
-              <BsSearch className="text-gray-500 mr-2" />
-              <input
-                type="text"
-                placeholder="Search..."
-                className="bg-transparent outline-none text-gray-700 w-full"
-              />
-            </div>
-          </div>
+
 
           {/* Links */}
           <div className="flex flex-col gap-3">
@@ -128,7 +114,7 @@ const Navbar = () => {
             </Link>
             <Link
               to="/GetStart"
-              className="px-4 py-3 text-center bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-medium shadow-md hover:from-purple-700 hover:to-blue-700 transition"
+              className="px-4 py-3 text-center bg-gradient-to-r from-purple-600 to-purple-600 text-white rounded-lg font-medium shadow-md hover:from-purple-700 hover:to-purple-700 transition"
             >
               Get Started
             </Link>

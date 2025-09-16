@@ -1,157 +1,246 @@
-import cospace01 from "../../assets/hero/cospace01.jpg";
-import cospace02 from "../../assets/hero/cospace02.jpg";
-import cospace03 from "../../assets/hero/cospace03.webp";
-import React, { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, MapPin, Building, Calendar } from 'lucide-react';
+import React, { useEffect, useRef, useState } from "react";
+import {  ChevronLeft,Building,ChevronRight,ArrowRight,Code,Users,Laptop,Mic,Sofa,Coffee,Zap,Wifi,GraduationCap,Star,Calendar,Phone,MapPin,Monitor, Building2} from "lucide-react";
+  import cospace01 from "../../assets/hero/cospace01.jpg";
+  import cospace02 from "../../assets/hero/cospace02.jpg";
+  import cospace03 from "../../assets/hero/cospace03.webp";
 
-const ResponsiveSlider = () => {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [formData, setFormData] = useState({
-    location: '',
-    roomType: '',
-    date: ''
+// Sample tech hub hero slides data
+const slidesData = [
+  {
+    id: 1,
+    image: cospace01,
+    title: "Premium Workspaces",
+    subtitle: "Productivity meets comfort in our designed environments.",
+    features: [
+      "Co-working Spaces",
+      "Dedicated Desks",
+      "Private Offices",
+    ],
+    ctaPrimary: "Book Workspace",
+    location: "Ikeja, Lagos",
+  },
+  {
+    id: 2,
+    image: cospace02,
+    title: "Collaboration Hubs",
+    subtitle: "Tailored environments for meetings and events.",
+    features: [
+      "Meeting Rooms",
+      "Event Halls",
+      "Training Facilities",
+    ],
+    ctaPrimary: "Reserve a Room",
+    location: "Abuja, FCT",
+  },
+  {
+    id: 3,
+    image: cospace03,
+    title: "Seamless Experience",
+    subtitle: "Reliable infrastructure that keeps your team connected.",
+    features: [
+      "High-Speed Internet",
+      "Uninterrupted Power",
+      "On-site Cafeteria",
+    ],
+    ctaPrimary: "Join Our Hub",
+    location: "Port Harcourt, Rivers",
+  },
+];
+
+// Feature icon mapping
+const FeatureIcon = ({ name, className = "w-4 h-4" }) => {
+  const iconMap = {
+    "Co-working Spaces": Users,
+    "Dedicated Desks": Laptop,
+    "Private Offices": Building,
+    "Meeting Rooms": Monitor,
+    "Event Halls": Mic,
+    "Training Facilities": GraduationCap,
+    "High-Speed Internet": Wifi,
+    "Uninterrupted Power": Zap,
+    "On-site Cafeteria": Coffee,
+    "Lounge Areas": Sofa,
+  };
+
+  const IconComponent = iconMap[name] || Star;
+  return <IconComponent className={className} />;
+};
+
+export default function TechHeroSlider() {
+  const [current, setCurrent] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [bookingForm, setBookingForm] = useState({
+    phone: "",
+    service: "",
+    date: "",
   });
 
-  // Slide data
-  const slides = [
-    {
-      id: 1,
-      image: cospace01,
-      title: 'Premium Workspaces',
-      subtitle: 'Productivity meets comfort in our designed environments',
-      location: 'Abeokuta, Ogun'
-    },
-    {
-      id: 2,
-      image: cospace02,
-      title: 'Flexible Office Solutions',
-      subtitle: 'Tailored spaces for teams of all sizes',
-      location: 'Ikom, Cross River'
-    },
-    {
-      id: 3,
-      image: cospace03,
-      title: 'Meeting Rooms & Beyond',
-      subtitle: 'Professional spaces for collaboration and innovation',
-      location: 'Ikeja, Lagos'
-    }
-  ];
+  const slides = slidesData;
+  const slideCount = slides.length;
+  const timerRef = useRef(null);
+  const touchStartX = useRef(null);
 
-  // Auto-advance slides
+  // Auto-play functionality
   useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    if (isPaused) return;
+
+    timerRef.current = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % slideCount);
     }, 5000);
 
-    return () => clearInterval(timer);
-  }, [slides.length]);
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
+  }, [isPaused, slideCount]);
 
   // Navigation functions
-  const goToNext = () => {
-    setCurrentSlide((prev) => (prev + 1) % slides.length);
-  };
-
-  const goToPrevious = () => {
-    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
-  };
-
   const goToSlide = (index) => {
-    setCurrentSlide(index);
+    if (index === current || isTransitioning) return;
+    setIsTransitioning(true);
+    setCurrent(index);
+    setTimeout(() => setIsTransitioning(false), 300);
   };
 
-  // Form handlers
-  const handleInputChange = (e) => {
+  const nextSlide = () => goToSlide((current + 1) % slideCount);
+  const prevSlide = () => goToSlide((current - 1 + slideCount) % slideCount);
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "ArrowRight") nextSlide();
+      if (e.key === "ArrowLeft") prevSlide();
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [current]);
+
+  // Touch handlers
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e) => {
+    if (!touchStartX.current) return;
+    const diff = touchStartX.current - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) {
+      diff > 0 ? nextSlide() : prevSlide();
+    }
+    touchStartX.current = null;
+  };
+
+  const currentSlide = slides[current];
+
+  // Booking handlers
+  const handleBookingChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    setBookingForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleBookingSubmit = (e) => {
     e.preventDefault();
-    alert(`Booking request submitted!\nLocation: ${formData.location}\nRoom Type: ${formData.roomType}\nDate: ${formData.date}`);
-    setFormData({ location: '', roomType: '', date: '' });
+    if (bookingForm.phone && bookingForm.service && bookingForm.date) {
+      alert(`Booking submitted for ${bookingForm.service} on ${bookingForm.date}`);
+      setBookingForm({ phone: "", service: "", date: "" });
+    } else {
+      alert("Please fill in all fields");
+    }
   };
 
   return (
-    <div className="relative w-full h-[100vh] overflow-hidden">
-      {/* Background Images Container */}
-      <div className="absolute inset-0 w-full h-full">
+    <section
+      className="relative w-full min-h-screen bg-gray-900 overflow-hidden"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+      aria-label="Hero slider"
+    >
+      {/* Background Images */}
+      <div className="absolute inset-0">
         {slides.map((slide, index) => (
           <div
-  key={slide.id}
-  className={`absolute inset-0 w-full h-full transition-opacity duration-500 ease-in-out ${
-    index === currentSlide ? "opacity-100" : "opacity-0"
-  }`}
-  style={{
-    backgroundImage: `url(${slide.image})`,
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    backgroundRepeat: "no-repeat",
-  }}
->
-  {/* Dark Overlay */}
-  <div className="absolute inset-0 bg-black/50   bg-opacity-10"></div>
-</div>
-
+            key={slide.id}
+            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+              index === current ? "opacity-100" : "opacity-0"
+            }`}
+            style={{
+              backgroundImage: `url(${slide.image})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/40" />
+          </div>
         ))}
       </div>
 
-      {/* Content Overlay */}
-      <div className="relative z-10 h-full flex flex-col justify-center items-center text-white text-center px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl w-full">
-          <h1 className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 sm:mb-6 transform transition-all duration-500 ${
-            currentSlide >= 0 ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+      {/* Main Content */}
+      <main className="relative z-20 min-h-screen flex flex-col justify-center  px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl w-full mx-auto lg:-mt-14 mt-10 ">
+          {/* Text Content */}
+          <div className={`text-center space-y-2  lg:space-y-4 transition-all duration-700 ${
+            isTransitioning ? "opacity-0 translate-y-8" : "opacity-100 translate-y-0"
           }`}>
-            {slides[currentSlide].title}
-          </h1>
-          
-          <p className={`text-lg sm:text-xl md:text-2xl lg:text-3xl mb-6 sm:mb-8 transform transition-all duration-500 delay-200 ${
-            currentSlide >= 0 ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
-          }`}>
-            {slides[currentSlide].subtitle}
-          </p>
-          
-          <div className={`inline-flex items-center bg-blue-600 bg-opacity-60 px-4 py-2 sm:px-6 sm:py-3 rounded-full transform transition-all duration-500 delay-400 ${
-            currentSlide >= 0 ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
-          }`}>
-            <MapPin className="w-4 h-4 sm:w-5 sm:h-5 mr-2 text-white" />
-            <span className="text-sm sm:text-base md:text-lg">{slides[currentSlide].location}</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Booking Form - Bottom Left */}
-      <div className="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 lg:bottom-8 lg:left-8 z-20 w-[calc(100%-8rem)] max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:w-96">
-        <div className="bg-white bg-opacity-95 backdrop-blur-sm rounded-2xl p-4 sm:p-2 shadow-2xl">
-          <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-800 mb-4 text-center">
-            Find Your Workspace
-          </h3>
-          
-          <div className="space-y-3 sm:space-y-1">
-            {/* Location Input */}
-            <div className="relative">
-              <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 h-3 w-3 sm:h-5 sm:w-5 text-gray-400" />
-              <input
-                type="text"
-                name="location"
-                placeholder="Enter location"
-                value={formData.location}
-                onChange={handleInputChange}
-                className="w-full pl-10 sm:pl-12 pr-3 py-1.5 sm:py-2 text-sm sm:text-base rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              />
+            
+            {/* Location Badge */}
+            <div className="inline-flex items-center px-3 py-1 mt-10 lg:mt-0 md:-mt-20 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white text-xs sm:text-sm font-medium">
+              <MapPin className="w-3 h-3 sm:w-4 sm:h-4 mr-2" />
+              {currentSlide.location}
             </div>
 
-            {/* Room Type Select */}
-            <div className="relative">
-              <Building className="absolute left-3 top-1/2 transform -translate-y-1/2 h-3 w-3 sm:h-5 sm:w-5 text-gray-400 pointer-events-none z-10" />
-              <select
-                name="roomType"
-                value={formData.roomType}
-                onChange={handleInputChange}
-                className="w-full pl-10 sm:pl-12 pr-8 py-1.5 sm:py-2 text-sm sm:text-base rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none bg-white"
-              >
+            {/* Main Title */}
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-extrabold text-white leading-tight tracking-tight max-w-5xl mx-auto px-2">
+              {currentSlide.title}
+            </h1>
+
+            {/* Subtitle */}
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-gray-200 leading-relaxed max-w-3xl mx-auto px-4">
+              {currentSlide.subtitle}
+            </p>
+
+            {/* Features */}
+            <div className="flex flex-wrap justify-center gap-2 sm:gap-3 max-w-2xl mx-auto px-4">
+              {currentSlide.features.map((feature, index) => (
+                <div
+                  key={index}
+                  className="flex items-center space-x-1.5 sm:space-x-2 bg-white/10 backdrop-blur-sm rounded-full px-2.5 py-1.5 sm:px-3 sm:py-2 md:px-4 md:py-2 border border-white/10"
+                >
+                  <FeatureIcon name={feature} className="w-3 h-3 sm:w-4 sm:h-4 text-purple-300 flex-shrink-0" />
+                  <span className="text-xs sm:text-sm font-medium text-white whitespace-nowrap">{feature}</span>
+                </div>
+              ))}
+            </div>
+
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center px-4 max-w-lg mx-auto">
+              <button className="group flex items-center justify-center gap-2 sm:gap-3 px-4 py-3 sm:px-6 sm:py-3 md:px-8 md:py-4 bg-gradient-to-r from-purple-500 to-purple-600 rounded-xl text-white font-semibold hover:shadow-xl hover:scale-105 transition-all duration-300 w-full sm:w-auto text-sm sm:text-base">
+                <span>{currentSlide.ctaPrimary}</span>
+                <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform flex-shrink-0" />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Booking Form (Bottom Left) */}
+        <div className="mt-8 lg:mt-12 w-full lg:max-w-xs  max-w-md mx-auto lg:mx-0 lg:absolute lg:left-8 lg:bottom-8">
+          <div className="bg-white/95 backdrop-blur-sm rounded-xl p-4 sm:p-6 shadow-lg border border-white/20">
+            <h2 className="text-lg sm:text-xl font-bold text-gray-900 mb-4 flex items-center">
+              <Calendar className="w-5 h-5 mr-2 text-purple-500" />
+              Find Your Workspace
+            </h2>
+            
+            <form onSubmit={handleBookingSubmit} className="space-y-2">
+              <div className="relative">
+                <MapPin className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
+                <select
+                  name="service"
+                  value={bookingForm.service}
+                  onChange={handleBookingChange}
+                  className="w-full pl-10 pr-3 py-2 rounded-lg border border-gray-300 bg-white focus:ring-2 focus:ring-purple-500 focus:border-transparent appearance-none text-sm sm:text-base"
+                  required
+                >
                 <option value="">Select room type</option>
                 <option value="private-office">Private Office</option>
                 <option value="dedicated-desk">Dedicated Desk</option>
@@ -159,60 +248,70 @@ const ResponsiveSlider = () => {
                 <option value="meeting-room">Meeting Room</option>
                 <option value="conference-room">Conference Room</option>
                 <option value="event-space">Event Space</option>
-              </select>
-              <div className="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
-                <ChevronRight className="h-4 w-4 text-gray-400 rotate-90" />
+                </select>
               </div>
-            </div>
+              <div className="relative">
+                <Building2 className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
+                <select
+                  name="Select room type"
+                  value={bookingForm.service}
+                  onChange={handleBookingChange}
+                  className="w-full pl-10 pr-3 py-2 rounded-lg border border-gray-300 bg-white focus:ring-2 focus:ring-purple-500 focus:border-transparent appearance-none text-sm sm:text-base"
+                  required
+                >
+                <option value="">Location</option>
+                <option value="private-office">Private Office</option>
+                <option value="dedicated-desk">Dedicated Desk</option>
+                <option value="hot-desk">Hot Desk</option>
 
-            {/* Date Input */}
-            <div className="relative">
-              <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 sm:h-5 sm:w-5 text-gray-400" />
-              <input
-                type="date"
-                name="date"
-                value={formData.date}
-                onChange={handleInputChange}
-                className="w-full pl-10 sm:pl-12 pr-3 py-1.5 sm:py-2 text-sm sm:text-base rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              />
-            </div>
+                </select>
+              </div>
 
-            {/* Submit Button */}
-            <button
-              onClick={handleSubmit}
-              className="w-full bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-semibold py-2 sm:py-3 px-4 rounded-lg transition-colors duration-200 text-sm sm:text-base"
-            >
-              Find Workspace
-            </button>
+              <div className="relative">
+                <Calendar className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
+                <input
+                  type="date"
+                  name="date"
+                  value={bookingForm.date}
+                  onChange={handleBookingChange}
+                  min={new Date().toISOString().split("T")[0]}
+                  className="w-full pl-10 pr-3 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent text-sm sm:text-base"
+                  required
+                />
+              </div>
+
+              <button
+                type="submit"
+                className="w-full flex items-center justify-center space-x-3 px-4 py-3 sm:px-6 sm:py-4 bg-gradient-to-r from-purple-500 to-purple-600 text-white font-semibold rounded-xl hover:shadow-xl hover:scale-105 transition-all duration-300 text-sm sm:text-base"
+              >
+                <span>Find WorkSpace</span>
+              </button>
+            </form>
           </div>
         </div>
+      </main>
+
+      {/* Navigation Controls (Bottom Right) */}
+      <div className="absolute hidden lg:block bottom-4 sm:bottom-6 right-4 sm:right-6 z-30  space-x-2 sm:space-x-3">
+        <button
+          onClick={prevSlide}
+          className="p-2 sm:p-3 bg-white/10 backdrop-blur-sm rounded-lg sm:rounded-xl text-white hover:bg-white/20 transition-colors border border-white/10"
+          aria-label="Previous slide"
+        >
+          <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+        </button>
+        <button
+          onClick={nextSlide}
+          className="p-2 sm:p-3 bg-white/10 backdrop-blur-sm rounded-lg sm:rounded-xl text-white hover:bg-white/20 transition-colors border border-white/10"
+          aria-label="Next slide"
+        >
+          <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
+        </button>
       </div>
 
-      {/* Navigation Controls - Bottom Right */}
-      <div className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 lg:bottom-8 lg:right-8 z-20">
-        <div className="flex items-center space-x-3">
-          {/* Previous Button */}
-          <button
-            onClick={goToPrevious}
-            className="bg-white bg-opacity-90 hover:bg-opacity-100 text-gray-800 p-2 sm:p-3 rounded-full shadow-lg transition-all duration-200 hover:scale-105 active:scale-95"
-            aria-label="Previous slide"
-          >
-            <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
-          </button>
 
 
-          {/* Next Button */}
-          <button
-            onClick={goToNext}
-            className="bg-white bg-opacity-90 hover:bg-opacity-100 text-gray-800 p-2 sm:p-3 rounded-full shadow-lg transition-all duration-200 hover:scale-105 active:scale-95"
-            aria-label="Next slide"
-          >
-            <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
-          </button>
-        </div>
-      </div>
-    </div>
+
+    </section>
   );
-};
-
-export default ResponsiveSlider;
+}

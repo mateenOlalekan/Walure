@@ -1,14 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { 
-  Monitor, 
-  Coffee, 
-  Wifi, 
-  Users,  
-  Star, 
-  ArrowRight,
-  Calendar,
-} from "lucide-react";
-
+import {   Monitor,   Coffee,   Wifi,   Users,   Star,   ArrowRight,  Calendar,} from "lucide-react";
+import loung3 from "../../assets/hero/lounge.webp";
 // ExperienceBlock component (assuming this is what we're enhancing)
 const ExperienceBlock = ({ 
   title, 
@@ -38,18 +30,18 @@ const ExperienceBlock = ({
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
           {features.map((feature, index) => (
             <div key={index} className="flex items-center">
-              <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center mr-3">
-                {index % 4 === 0 && <Monitor className="w-4 h-4 text-blue-600" />}
-                {index % 4 === 1 && <Wifi className="w-4 h-4 text-blue-600" />}
-                {index % 4 === 2 && <Users className="w-4 h-4 text-blue-600" />}
-                {index % 4 === 3 && <Coffee className="w-4 h-4 text-blue-600" />}
+              <div className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center mr-3">
+                {index % 4 === 0 && <Monitor className="w-4 h-4 text-purple-600" />}
+                {index % 4 === 1 && <Wifi className="w-4 h-4 text-purple-600" />}
+                {index % 4 === 2 && <Users className="w-4 h-4 text-purple-600" />}
+                {index % 4 === 3 && <Coffee className="w-4 h-4 text-purple-600" />}
               </div>
               <span className="text-gray-700 font-medium">{feature}</span>
             </div>
           ))}
         </div>
         
-        <button className="inline-flex items-center text-blue-600 font-medium group">
+        <button className="inline-flex items-center text-purple-600 font-medium group">
           Learn more
           <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
         </button>
@@ -68,20 +60,20 @@ export default function Experience() {
   // Replace local images with Unsplash URLs
   const image01 = "https://images.unsplash.com/photo-1497366811353-6870744d04b2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80";
   const image02 = "https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80";
-  const image03 = "https://images.unsplash.com/photo-1493663284031-b7e3aaa4c4b1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80";
+  const image03 = loung3;
 
   return (
     <section className="w-full flex flex-col justify-center items-center px-4 md:px-8 py-16 md:py-24 bg-gradient-to-b from-slate-50 to-white">
       <div className="max-w-7xl w-full flex flex-col gap-16 md:gap-24">
         {/* Section Header */}
         <header className="text-center mb-4">
-          <div className="inline-flex items-center rounded-full bg-blue-100 px-4 py-2 text-sm font-medium text-blue-700 mb-4">
+          <div className="inline-flex items-center rounded-full bg-purple-100 px-4 py-2 text-sm font-medium text-purple-700 mb-4">
             <Star className="w-4 h-4 mr-2 fill-current" />
             Premium Amenities
           </div>
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
             Expand Your Experience With Our
-            <span className="text-blue-600"> Premium Services</span>
+            <span className="text-purple-600"> Premium Services</span>
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Discover our thoughtfully designed spaces that blend productivity with comfort, 
@@ -123,13 +115,13 @@ export default function Experience() {
         </div>
 
         {/* CTA Section */}
-        <div className="text-center mt-12 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-10 text-white">
+        <div className="text-center mt-12 bg-gradient-to-r from-purple-600 to-purple-600 rounded-2xl p-10 text-white">
           <h3 className="text-2xl md:text-3xl font-bold mb-4">Ready to Experience Our Premium Spaces?</h3>
-          <p className="text-blue-100 text-lg mb-6 max-w-2xl mx-auto">
+          <p className="text-purple-100 text-lg mb-6 max-w-2xl mx-auto">
             Book a tour today and discover how our spaces can elevate your work and creativity.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-white text-blue-600 font-medium py-3 px-6 rounded-lg hover:bg-blue-50 transition-colors inline-flex items-center justify-center">
+            <button className="bg-white text-purple-600 font-medium py-3 px-6 rounded-lg hover:bg-purple-50 transition-colors inline-flex items-center justify-center">
               <Calendar className="w-5 h-5 mr-2" />
               Check for Avaliablity
             </button>
