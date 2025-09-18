@@ -18,14 +18,13 @@ const Navbar = () => {
     { name: "Home", icon: <FiHome className="w-4 h-4" />, href: "#" },
     { name: "Features", icon: <FiPieChart className="w-4 h-4" />, href: "#" },
     { name: "Contact", icon: <PhoneCall className="w-4 h-4" />, href: "#" },
-    { name: "Pricing", icon: <FiDollarSign className="w-4 h-4" />, href: "#" },
   ];
 
   return (
     <nav
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-transparent backdrop-blur-xl shadow-md py-3"
+          ? "bg-white shadow-md py-3"
           : "bg-transparent py-4"
       }`}
     >
@@ -57,12 +56,6 @@ const Navbar = () => {
 
         {/* Desktop Buttons */}
         <div className="hidden md:flex items-center gap-4">
-          <Link
-            to="/login"
-            className="px-4 py-2 text-lg text-purple-600 hover:text-white font-medium transition"
-          >
-            Login
-          </Link>
           <Link
             to="/GetStart"
             className="px-5 py-2.5 bg-gradient-to-r from-purple-600 to-purple-600 text-white rounded-lg font-medium shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all"

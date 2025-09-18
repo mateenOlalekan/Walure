@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
-import {  ChevronLeft,Building,ChevronRight,ArrowRight,Code,Users,Laptop,Mic,Sofa,Coffee,Zap,Wifi,GraduationCap,Star,Calendar,Phone,MapPin,Monitor, Building2} from "lucide-react";
+import {  ChevronLeft,Building,ChevronRight,Users,Laptop,Mic,Sofa,Coffee,Zap,Wifi,GraduationCap,Star,Calendar,Phone,MapPin,Monitor, Building2} from "lucide-react";
   import cospace01 from "../../assets/hero/cospace01.jpg";
   import cospace02 from "../../assets/hero/cospace02.jpg";
   import cospace03 from "../../assets/hero/cospace03.webp";
+  import Form from "./Form"
 
 // Sample tech hub hero slides data
 const slidesData = [
@@ -70,12 +71,6 @@ export default function TechHeroSlider() {
   const [current, setCurrent] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const [bookingForm, setBookingForm] = useState({
-    phone: "",
-    service: "",
-    date: "",
-  });
-
   const slides = slidesData;
   const slideCount = slides.length;
   const timerRef = useRef(null);
@@ -132,21 +127,7 @@ export default function TechHeroSlider() {
 
   const currentSlide = slides[current];
 
-  // Booking handlers
-  const handleBookingChange = (e) => {
-    const { name, value } = e.target;
-    setBookingForm((prev) => ({ ...prev, [name]: value }));
-  };
 
-  const handleBookingSubmit = (e) => {
-    e.preventDefault();
-    if (bookingForm.phone && bookingForm.service && bookingForm.date) {
-      alert(`Booking submitted for ${bookingForm.service} on ${bookingForm.date}`);
-      setBookingForm({ phone: "", service: "", date: "" });
-    } else {
-      alert("Please fill in all fields");
-    }
-  };
 
   return (
     <section
@@ -214,81 +195,17 @@ export default function TechHeroSlider() {
             </div>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center px-4 max-w-lg mx-auto">
+            {/* <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center px-4 max-w-lg mx-auto">
               <button className="group flex items-center justify-center gap-2 sm:gap-3 px-4 py-3 sm:px-6 sm:py-3 md:px-8 md:py-4 bg-gradient-to-r from-purple-500 to-purple-600 rounded-xl text-white font-semibold hover:shadow-xl hover:scale-105 transition-all duration-300 w-full sm:w-auto text-sm sm:text-base">
                 <span>{currentSlide.ctaPrimary}</span>
                 <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform flex-shrink-0" />
               </button>
-            </div>
+            </div> */}
           </div>
         </div>
 
         {/* Booking Form (Bottom Left) */}
-        <div className="mt-8 lg:mt-12 w-full lg:max-w-xs  max-w-md mx-auto lg:mx-0 lg:absolute lg:left-8 lg:bottom-8">
-          <div className="bg-white/95 backdrop-blur-sm rounded-xl p-4 sm:p-6 shadow-lg border border-white/20">
-            <h2 className="text-lg sm:text-xl font-bold text-gray-900 mb-4 flex items-center">
-              <Calendar className="w-5 h-5 mr-2 text-purple-500" />
-              Find Your Workspace
-            </h2>
-            
-            <form onSubmit={handleBookingSubmit} className="space-y-2">
-              <div className="relative">
-                <MapPin className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
-                <select
-                  name="service"
-                  value={bookingForm.service}
-                  onChange={handleBookingChange}
-                  className="w-full pl-10 pr-3 py-2 rounded-lg border border-gray-300 bg-white focus:ring-2 focus:ring-purple-500 focus:border-transparent appearance-none text-sm sm:text-base"
-                  required
-                >
-                <option value="">Select room type</option>
-                <option value="private-office">Private Office</option>
-                <option value="dedicated-desk">Dedicated Desk</option>
-                <option value="hot-desk">Hot Desk</option>
-                <option value="meeting-room">Meeting Room</option>
-                <option value="conference-room">Conference Room</option>
-                <option value="event-space">Event Space</option>
-                </select>
-              </div>
-              <div className="relative">
-                <Building2 className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
-                <select
-                  name="Select room type"
-                  value={bookingForm.service}
-                  onChange={handleBookingChange}
-                  className="w-full pl-10 pr-3 py-2 rounded-lg border border-gray-300 bg-white focus:ring-2 focus:ring-purple-500 focus:border-transparent appearance-none text-sm sm:text-base"
-                  required
-                >
-                <option value="">Location</option>
-                <option value="private-office">Private Office</option>
-                <option value="dedicated-desk">Dedicated Desk</option>
-                <option value="hot-desk">Hot Desk</option>
-
-                </select>
-              </div>
-
-              <div className="relative">
-                <Calendar className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
-                <input
-                  type="date"
-                  name="date"
-                  value={bookingForm.date}
-                  onChange={handleBookingChange}
-                  min={new Date().toISOString().split("T")[0]}
-                  className="w-full pl-10 pr-3 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent text-sm sm:text-base"
-                  required
-                />
-              </div>
-
-              <button
-                type="submit"
-                className="w-full flex items-center justify-center space-x-3 px-4 py-3 sm:px-6 sm:py-4 bg-gradient-to-r from-purple-500 to-purple-600 text-white font-semibold rounded-xl hover:shadow-xl hover:scale-105 transition-all duration-300 text-sm sm:text-base"
-              >
-                <span>Find WorkSpace</span>
-              </button>
-            </form>
-          </div>
-        </div>
+              <Form/>
       </main>
 
       {/* Navigation Controls (Bottom Right) */}
