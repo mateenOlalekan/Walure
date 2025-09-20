@@ -131,6 +131,7 @@ export default function TechHeroSlider() {
 
   return (
     <section
+      id="home"
       className="relative w-full min-h-screen bg-gray-900 overflow-hidden"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}

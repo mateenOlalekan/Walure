@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Eye, EyeOff, Mail, Lock, Calendar, CheckCircle, Facebook, Github, ArrowRight, Star } from 'lucide-react';
+import { Eye, EyeOff, Mail, Lock, CheckCircle, Facebook, Github, ArrowRight, Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const LoginPage = () => {
@@ -38,51 +38,52 @@ const LoginPage = () => {
   return (
     <div className="h-screen bg-gray-50 flex">
       <div className="w-full bg-white shadow-2xl overflow-hidden flex">
-        {/* Left side - Image Section with Overlay */}
+        {/* Left side - Hero Section */}
         <div 
           className="hidden lg:flex lg:w-1/2 relative bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1464207687429-7505649dae38?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2073&q=80')`
+            backgroundImage: `url('https://images.unsplash.com/photo-1551836022-4c4c79ecde51?q=80&w=2073&auto=format&fit=crop')`
           }}
         >
-          {/* Dark overlay for better text readability */}
-          <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/60 to-black/50"></div>
+          {/* Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-black/70 to-black/60"></div>
           
           {/* Content overlay */}
           <div className="relative z-10 text-white p-8 md:p-12 flex flex-col justify-center h-full">
-          <div className="flex items-center mb-8 gap-2">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 flex items-center justify-center">
-            <span className="text-white font-bold text-lg">WP</span>
-          </div>
-          <span className="text-xl md:text-2xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-            WorkspacePro
-          </span>
-        </div>
+            <div className="flex items-center mb-8 gap-2">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 flex items-center justify-center">
+                <span className="text-white font-bold text-lg">TB</span>
+              </div>
+              <span className="text-xl md:text-2xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                TechBunker
+              </span>
+            </div>
             
-
-            
+            {/* Value props */}
             <div className="space-y-4 mb-10">
               <div className="flex items-center gap-4 bg-white/10 backdrop-blur-sm rounded-lg p-3">
                 <div className="bg-blue-500 rounded-full p-1">
                   <CheckCircle className="h-4 w-4 text-white" />
                 </div>
-                <span className="text-white/95">Access your saved venues</span>
+                <span className="text-white/95">Book secure, modern workspaces</span>
               </div>
 
               <div className="flex items-center gap-4 bg-white/10 backdrop-blur-sm rounded-lg p-3">
                 <div className="bg-blue-500 rounded-full p-1">
                   <CheckCircle className="h-4 w-4 text-white" />
                 </div>
-                <span className="text-white/95">View personalized recommendations</span>
+                <span className="text-white/95">Access 24/7 innovation hubs</span>
               </div>
+
               <div className="flex items-center gap-4 bg-white/10 backdrop-blur-sm rounded-lg p-3">
                 <div className="bg-blue-500 rounded-full p-1">
                   <CheckCircle className="h-4 w-4 text-white" />
                 </div>
-                <span className="text-white/95">Access exclusive member deals</span>
+                <span className="text-white/95">Member-only networking events</span>
               </div>
             </div>
             
+            {/* Testimonial */}
             <div className="bg-white/15 backdrop-blur-md p-6 rounded-xl border border-white/20">
               <div className="flex items-start gap-4">
                 <div className="bg-white/20 rounded-full p-2 mt-1">
@@ -95,9 +96,10 @@ const LoginPage = () => {
                     ))}
                   </div>
                   <p className="text-white/95 italic text-base leading-relaxed">
-                    "EventBooker made finding and booking our corporate event venue incredibly easy. The platform is intuitive and the service is exceptional!"
+                    "TechBunker gives me a safe, inspiring place to code and collaborate.
+                    Booking a pod is seamless, and the vibe is unmatched."
                   </p>
-                  <p className="text-white/80 text-sm mt-3 font-medium">— Sarah Chen, Event Coordinator</p>
+                  <p className="text-white/80 text-sm mt-3 font-medium">— Jamal R., Fullstack Developer</p>
                 </div>
               </div>
             </div>
@@ -108,11 +110,11 @@ const LoginPage = () => {
         <div className="w-full lg:w-1/2 h-screen overflow-y-auto">
           <div className="p-8 md:p-12 flex flex-col justify-center min-h-full">
             <div className="text-center mb-8">
-              <h2 className="text-3xl font-bold text-gray-800 mb-3">Welcome Back</h2>
-              <p className="text-gray-600">Sign in to your account to continue</p>
+              <h2 className="text-3xl font-bold text-gray-800 mb-3">Welcome Back to TechBunker</h2>
+              <p className="text-gray-600">Log in to book your next workspace</p>
             </div>
             
-            <div className="space-y-6">
+            <form className="space-y-6" onSubmit={handleSubmit}>
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
                   Email Address
@@ -190,7 +192,6 @@ const LoginPage = () => {
               <div>
                 <button
                   type="submit"
-                  onClick={handleSubmit}
                   disabled={isLoading}
                   className="w-full flex justify-center items-center gap-2 py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-75 disabled:cursor-not-allowed transition-all transform hover:scale-[1.02]"
                 >
@@ -207,7 +208,7 @@ const LoginPage = () => {
                   )}
                 </button>
               </div>
-            </div>
+            </form>
             
             <div className="mt-8">
               <div className="relative">
@@ -240,14 +241,12 @@ const LoginPage = () => {
             
             <div className="mt-8 text-center">
               <p className="text-sm text-gray-600">
-                Don't have an account?{' '}
+                Don’t have an account?{' '}
                 <Link to="/Register" className="font-medium text-blue-600 hover:text-blue-500 transition-colors">
-                  Sign up for free
+                  Join TechBunker
                 </Link>
               </p>
             </div>
-
-
           </div>
         </div>
       </div>

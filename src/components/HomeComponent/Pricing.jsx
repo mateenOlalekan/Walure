@@ -39,7 +39,7 @@ export default function Pricing() {
   const [hoveredCard, setHoveredCard] = useState(null);
 
   return (
-    <section className="w-full flex flex-col items-center py-16 px-6 md:px-12 bg-gradient-to-b from-gray-50 to-white">
+    <section id="pricing" className="w-full flex flex-col items-center py-16 px-6 md:px-12 bg-gradient-to-b from-gray-50 to-white">
       {/* Section 1: Explore Spaces */}
       <div className="max-w-7xl w-full mb-16 text-center">
         <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-purple-100 text-purple-700 text-sm font-medium mb-4">

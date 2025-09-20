@@ -1,106 +1,169 @@
-import { MapPin, Twitter, Linkedin, Instagram, Mail, Phone, ArrowRight } from "lucide-react";
+"use client";
+import {
+  MapPin,
+  Twitter,
+  Linkedin,
+  Instagram,
+  Mail,
+  Phone,
+  ArrowRight,
+  Building,
+  Heart,
+} from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-900 text-white pt-16 pb-8 px-4 md:px-8">
+    <footer
+      id="footer"
+      className="bg-gradient-to-b from-purple-800 to-purple-900 text-white pt-20 pb-12 px-6 md:px-10"
+    >
       <div className="max-w-7xl mx-auto">
-        <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-10 mb-16">
+        {/* Main Footer Content */}
+        <div className="grid lg:grid-cols-5 md:grid-cols-2 grid-cols-1 gap-12 mb-16">
           {/* Company Info */}
-          <div className="flex flex-col">
-            <div className="flex items-center mb-6">
-              <div className="w-10 h-10 rounded-lg bg-blue-600 flex items-center justify-center mr-3">
-                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-4m-8 0H5m4 0h4m4 0h4m-8 0V9a1 1 0 00-1-1H6a1 1 0 00-1 1v12h4zm4 0V9a1 1 0 011-1h4a1 1 0 011 1v12h-6z" />
-                </svg>
+          <div className="space-y-6">
+            <div className="flex items-center">
+              <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center mr-3 border border-white/20">
+                <Building className="w-6 h-6 text-white" />
               </div>
-              <span className="text-2xl font-bold">WorkspacePro</span>
+              <span className="text-2xl font-bold bg-gradient-to-r from-white to-purple-200 bg-clip-text text-transparent">
+                WorkspacePro
+              </span>
             </div>
- 
-            <div className="flex items-center text-gray-400 mb-3">
-              <Mail className="w-5 h-5 mr-3 text-blue-500" />
-              <span>hello@workspacepro.com</span>
-            </div>
-            <div className="flex items-center text-gray-400 mb-4">
-              <Phone className="w-5 h-5 mr-3 text-blue-500" />
-              <span>+1 (555) 123-4567</span>
-            </div>
-            <div className="flex items-center text-blue-400 cursor-pointer group">
-              <MapPin className="w-5 h-5 mr-2" />
-              <span className="group-hover:underline transition-all">View on the map</span>
-              <ArrowRight className="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform" />
-            </div>
-          </div>
 
-          {/* Company Links */}
-          <div className="flex flex-col">
-            <h1 className="text-lg font-semibold mb-6 relative inline-block">
-              Company
-              <span className="absolute bottom-0 left-0 w-10 h-0.5 bg-blue-600"></span>
-            </h1>
             <div className="space-y-3">
-              <p className="text-gray-400 hover:text-white cursor-pointer transition-colors duration-300">About Us</p>
-              <p className="text-gray-400 hover:text-white cursor-pointer transition-colors duration-300">Features</p>
-              <p className="text-gray-400 hover:text-white cursor-pointer transition-colors duration-300">Contact Us</p>
+              <div className="flex items-center text-purple-200 hover:text-white transition-colors">
+                <Mail className="w-5 h-5 mr-3" />
+                hello@workspacepro.com
+              </div>
+              <div className="flex items-center text-purple-200 hover:text-white transition-colors">
+                <Phone className="w-5 h-5 mr-3" />
+                +1 (555) 123-4567
+              </div>
+              <div className="flex items-center text-purple-200 hover:text-white transition-colors">
+                <MapPin className="w-5 h-5 mr-3" />
+                123 Innovation Drive, Tech City
+              </div>
+            </div>
+
+            {/* Social Media */}
+            <div className="flex space-x-4">
+              {[Twitter, Linkedin, Instagram].map((Icon, i) => (
+                <a
+                  key={i}
+                  href="#"
+                  className="w-10 h-10 rounded-lg bg-white/10 hover:bg-white/20 border border-white/20 flex items-center justify-center transition-all hover:scale-110"
+                >
+                  <Icon className="w-5 h-5" />
+                </a>
+              ))}
             </div>
           </div>
 
-          {/* Support Links */}
-          <div className="flex flex-col">
-            <h1 className="text-lg font-semibold mb-6 relative inline-block">
-              Support
-              <span className="absolute bottom-0 left-0 w-10 h-0.5 bg-blue-600"></span>
-            </h1>
-            <div className="space-y-3">
-              <p className="text-gray-400 hover:text-white cursor-pointer transition-colors duration-300">Login</p>
-              <p className="text-gray-400 hover:text-white cursor-pointer transition-colors duration-300">Sign Up</p>
-              <p className="text-gray-400 hover:text-white cursor-pointer transition-colors duration-300">Help Center</p>
-            </div>
+          {/* Quick Links */}
+          <div className="space-y-6">
+            <h2 className="text-lg font-semibold relative inline-block pb-1">
+              Quick Links
+              <span className="absolute bottom-0 left-0 w-12 h-0.5 bg-purple-400"></span>
+            </h2>
+            <ul className="space-y-3">
+              {["About Us", "Features", "Pricing"].map((item, i) => (
+                <li key={i}>
+                  <a
+                    href={`#${item.toLowerCase().replace(" ", "")}`}
+                    className="flex items-center text-purple-200 hover:text-white transition-colors group"
+                  >
+                    <ArrowRight className="w-4 h-4 mr-2 transform group-hover:translate-x-1 transition-transform" />
+                    {item}
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
 
-          {/* Connect Section */}
-          <div className="flex flex-col">
-            <h1 className="text-lg font-semibold mb-6 relative inline-block">
-              Connect With Us
-              <span className="absolute bottom-0 left-0 w-10 h-0.5 bg-blue-600"></span>
-            </h1>
-            <div className="flex gap-4 mb-8">
-              <div className="bg-gray-800 p-3 rounded-full cursor-pointer hover:bg-blue-600 transition-colors duration-300">
-                <Twitter className="w-5 h-5" />
-              </div>
-              <div className="bg-gray-800 p-3 rounded-full cursor-pointer hover:bg-blue-600 transition-colors duration-300">
-                <Linkedin className="w-5 h-5" />
-              </div>
-              <div className="bg-gray-800 p-3 rounded-full cursor-pointer hover:bg-blue-600 transition-colors duration-300">
-                <Instagram className="w-5 h-5" />
-              </div>
-            </div>
-            
-            {/* Newsletter Subscription */}
-            <div>
-              <h4 className="text-sm font-semibold text-white mb-3">Subscribe to our newsletter</h4>
-              <div className="flex">
-                <input 
-                  type="email" 
-                  placeholder="Your email address" 
-                  className="px-4 py-2 bg-gray-800 text-white rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-600 w-full"
+          {/* Newsletter */}
+          <div className="space-y-6">
+            <h2 className="text-lg font-semibold relative inline-block pb-1">
+              Stay Updated
+              <span className="absolute bottom-0 left-0 w-12 h-0.5 bg-purple-400"></span>
+            </h2>
+            <p className="text-purple-200 text-sm">
+              Subscribe to our newsletter for the latest updates and features.
+            </p>
+            <form className="flex bg-white/10 rounded-lg overflow-hidden shadow-lg">
+              <input
+                type="email"
+                placeholder="Your email address"
+                className="px-4 py-3 w-full bg-transparent text-white placeholder-purple-300 focus:outline-none"
+              />
+              <button
+                type="submit"
+                className="bg-purple-500 hover:bg-purple-600 px-5 transition-colors"
+              >
+                Subscribe
+              </button>
+            </form>
+          </div>
+
+          {/* Contact Form */}
+          <div className="lg:col-span-2 space-y-6">
+            <h2 className="text-lg font-semibold relative inline-block pb-1">
+              Contact Us
+              <span className="absolute bottom-0 left-0 w-12 h-0.5 bg-purple-400"></span>
+            </h2>
+            <form className="flex flex-col gap-4 bg-white/5 p-6 rounded-xl shadow-lg">
+              <div className="flex flex-col md:flex-row gap-4">
+                <input
+                  type="text"
+                  placeholder="Your Name"
+                  className="px-4 py-3 w-full rounded-lg bg-white/10 border border-white/20 text-white placeholder-purple-300 focus:outline-none focus:ring-2 focus:ring-purple-300"
                 />
-                <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-r-lg transition-colors duration-300">
-                  Subscribe
-                </button>
+                <input
+                  type="email"
+                  placeholder="Your Email"
+                  className="px-4 py-3 w-full rounded-lg bg-white/10 border border-white/20 text-white placeholder-purple-300 focus:outline-none focus:ring-2 focus:ring-purple-300"
+                />
               </div>
-            </div>
+              <textarea
+                placeholder="Your Message"
+                rows={4}
+                className="px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-purple-300 focus:outline-none focus:ring-2 focus:ring-purple-300 resize-none"
+              ></textarea>
+              <button
+                type="submit"
+                className="bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white px-6 py-3 rounded-lg font-semibold transition-all hover:scale-105 shadow-md"
+              >
+                Send Message
+              </button>
+            </form>
           </div>
         </div>
 
-        {/* Copyright Section */}
-        <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-gray-500 text-sm mb-4 md:mb-0">
-            © {new Date().getFullYear()} WorkspacePro. All rights reserved.
-          </p>
-          <div className="flex space-x-6">
-            <p className="text-gray-500 hover:text-white cursor-pointer text-sm transition-colors duration-300">Privacy Policy</p>
-            <p className="text-gray-500 hover:text-white cursor-pointer text-sm transition-colors duration-300">Terms of Service</p>
-            <p className="text-gray-500 hover:text-white cursor-pointer text-sm transition-colors duration-300">Cookie Policy</p>
+        {/* Bottom Bar */}
+        <div className="border-t border-purple-700 pt-6 flex flex-col md:flex-row justify-between items-center gap-4">
+          <div className="flex items-center text-purple-300 text-sm">
+            <span>Made with</span>
+            <Heart className="w-4 h-4 mx-1 text-red-400 fill-current" />
+            <span>by WorkspacePro Team</span>
+          </div>
+
+          <div className="flex flex-col md:flex-row items-center gap-6">
+            <p className="text-purple-300 text-sm">
+              © {new Date().getFullYear()} WorkspacePro. All rights reserved.
+            </p>
+            <div className="flex space-x-6 text-sm">
+              {["Privacy Policy", "Terms of Service", "Cookie Policy"].map(
+                (link, i) => (
+                  <a
+                    key={i}
+                    href={`#${link.toLowerCase().replace(" ", "")}`}
+                    className="text-purple-300 hover:text-white transition-colors"
+                  >
+                    {link}
+                  </a>
+                )
+              )}
+            </div>
           </div>
         </div>
       </div>

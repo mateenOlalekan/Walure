@@ -1,85 +1,160 @@
-/**
- * SponsorSection
- * - Displays partner/sponsor logos with hover effects
- * - Responsive grid layout
- * - Accessible (alt text for logos)
- * 
- * Usage: <SponsorSection />
- */
+import React, { useState, useEffect } from "react";
+import { ExternalLink, Star, Award, TrendingUp } from "lucide-react";
 
-import React from "react";
-import { motion } from "framer-motion";
+const SponsorGrid = () => {
+  const [activeSponsor, setActiveSponsor] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-const sponsors = [
-  {
-    id: 1,
-    name: "Google Cloud",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg",
-    url: "https://cloud.google.com",
-  },
-  {
-    id: 2,
-    name: "Microsoft",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg",
-    url: "https://microsoft.com",
-  },
-  {
-    id: 3,
-    name: "AWS",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg",
-    url: "https://aws.amazon.com",
-  },
-  {
-    id: 4,
-    name: "GitHub",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg",
-    url: "https://github.com",
-  },
-  {
-    id: 5,
-    name: "Stripe",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Stripe_Logo%2C_revised_2016.svg/250px-Stripe_Logo%2C_revised_2016.svg.png",
-    url: "https://stripe.com",
-  },
-];
+  const sponsors = [
+    {
+      id: 1,
+      name: "Microsoft",
+      logo: "https://cdn-icons-png.flaticon.com/512/732/732221.png",
+      tier: "platinum",
+      description: "Leading provider of cloud services, software, and solutions.",
+      website: "https://microsoft.com",
+      featured: true,
+    },
+    {
+      id: 2,
+      name: "Amazon Web Services",
+      logo: "https://cdn-icons-png.flaticon.com/512/6033/6033716.png",
+      tier: "platinum",
+      description: "Comprehensive and broadly adopted cloud platform.",
+      website: "https://aws.amazon.com",
+      featured: true,
+    },
+    {
+      id: 3,
+      name: "Google Cloud",
+      logo: "https://cdn-icons-png.flaticon.com/512/5968/5968269.png",
+      tier: "gold",
+      description: "Enterprise cloud computing services by Google.",
+      website: "https://cloud.google.com",
+      featured: false,
+    },
+    {
+      id: 4,
+      name: "Apple",
+      logo: "https://cdn-icons-png.flaticon.com/512/732/732228.png",
+      tier: "gold",
+      description:
+        "Technology company focused on consumer electronics and software.",
+      website: "https://apple.com",
+      featured: false,
+    },
+    {
+      id: 5,
+      name: "Intel",
+      logo: "https://cdn-icons-png.flaticon.com/512/724/724518.png",
+      tier: "silver",
+      description: "World leader in computing innovation.",
+      website: "https://intel.com",
+      featured: false,
+    },
+  ];
 
-export default function SponsorSection() {
+  const tierColors = {
+    platinum: "from-blue-50 to-blue-100 border-blue-200",
+    gold: "from-yellow-50 to-yellow-100 border-yellow-200",
+    silver: "from-gray-50 to-gray-100 border-gray-200",
+    partner: "from-purple-50 to-purple-100 border-purple-200",
+  };
+
+  const tierIcons = {
+    platinum: <Star className="w-5 h-5 text-blue-500" />,
+    gold: <Award className="w-5 h-5 text-yellow-500" />,
+    silver: <TrendingUp className="w-5 h-5 text-gray-500" />,
+    partner: <ExternalLink className="w-5 h-5 text-purple-500" />,
+  };
+
+
   return (
-    <section className="relative bg-gray-50 py-16 sm:py-20">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center">
-        {/* Heading */}
-        <h2 className="text-lg font-semibold text-purple-600 tracking-wide uppercase">
-          Trusted By
-        </h2>
-        <p className="mt-2 text-3xl sm:text-4xl font-bold text-gray-900">
-          Our Global Tech Partners & Sponsors
-        </p>
-        <p className="mt-3 max-w-2xl mx-auto text-purple-500 text-lg">
-          Backed by world-class organizations committed to empowering innovation
-          and technology growth across Africa.
-        </p>
+    <section
+      id="sponsor"
+      className="w-full bg-gradient-to-b from-gray-50 via-white to-gray-50 py-20 px-4 sm:px-6 lg:px-8"
+    >
+      <div className="max-w-7xl mx-auto">
+        {/* Header */}
+        <div className="text-center mb-12">
+          <h2 className="text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">
+            Our Technology Partners
+          </h2>
+          <div className="mt-2 h-1 w-24 bg-gradient-to-r from-purple-600 to-indigo-600 mx-auto rounded-full"></div>
+          <p className="mt-6 text-lg text-gray-600 max-w-3xl mx-auto">
+            We’re proud to collaborate with global innovators who fuel our
+            journey of technology and growth.
+          </p>
+        </div>
 
-        {/* Logos */}
-        <div className="mt-12 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-8 items-center justify-center">
+
+
+        {/* Sponsors Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
           {sponsors.map((sponsor) => (
-            <motion.a
+            <div
               key={sponsor.id}
-              href={sponsor.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              className="flex items-center justify-center transition"
+              className={`group relative bg-gradient-to-b ${tierColors[sponsor.tier]} rounded-2xl shadow-md hover:shadow-xl transition-all duration-500 border p-6 flex flex-col items-center`}
+              onMouseEnter={() => setActiveSponsor(sponsor.id)}
+              onMouseLeave={() => setActiveSponsor(null)}
             >
-              <img
-                src={sponsor.logo}
-                alt={`${sponsor.name} logo`}
-                className="h-12 sm:h-14 object-contain"
-              />
-            </motion.a>
+              {/* Tier Badge */}
+              <div className="absolute top-3 right-3 flex items-center justify-center w-8 h-8 rounded-full bg-white shadow-sm">
+                {tierIcons[sponsor.tier]}
+              </div>
+
+              {/* Logo */}
+              <div className="w-20 h-20 rounded-full bg-white p-4 flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110">
+                <img
+                  src={sponsor.logo}
+                  alt={sponsor.name}
+                  className="max-h-12 max-w-12 object-contain"
+                />
+              </div>
+
+              {/* Name */}
+              <h3 className="text-lg font-semibold text-gray-900 mb-2 text-center">
+                {sponsor.name}
+              </h3>
+
+              {/* Tier */}
+              <div className="inline-flex items-center px-3 py-1 rounded-full bg-white shadow text-xs font-medium mb-3 capitalize">
+                {sponsor.tier} Partner
+              </div>
+
+              {/* Description */}
+              <div
+                className={`overflow-hidden transition-all duration-500 ${
+                  activeSponsor === sponsor.id
+                    ? "max-h-24 opacity-100"
+                    : "max-h-0 opacity-0"
+                }`}
+              >
+                <p className="text-sm text-gray-600 text-center">
+                  {sponsor.description}
+                </p>
+              </div>
+
+              {/* Website link */}
+              <a
+                href={sponsor.website}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`mt-3 inline-flex items-center text-sm font-medium text-purple-600 transition-all duration-500 ${
+                  activeSponsor === sponsor.id
+                    ? "opacity-100 translate-y-0"
+                    : "opacity-0 translate-y-2"
+                }`}
+              >
+                Visit website
+                <ExternalLink className="w-4 h-4 ml-1" />
+              </a>
+            </div>
           ))}
         </div>
       </div>
     </section>
   );
-}
+};
+
+export default SponsorGrid;
