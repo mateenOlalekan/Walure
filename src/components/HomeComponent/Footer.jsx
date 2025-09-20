@@ -23,11 +23,11 @@ export default function Footer() {
           {/* Company Info */}
           <div className="space-y-6">
             <div className="flex items-center">
-              <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center mr-3 border border-white/20">
-                <Building className="w-6 h-6 text-white" />
-              </div>
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 flex items-center justify-center">
+            <span className="text-white font-bold text-lg">WO</span>
+          </div>
               <span className="text-2xl font-bold bg-gradient-to-r from-white to-purple-200 bg-clip-text text-transparent">
-                WorkspacePro
+                Wavora Online
               </span>
             </div>
 

@@ -63,7 +63,7 @@ export default function Experience() {
   const image03 = loung3;
 
   return (
-    <section className="w-full flex flex-col justify-center items-center px-4 md:px-8 py-16 md:py-24 bg-gradient-to-b from-slate-50 to-white">
+    <section id="features" className="w-full flex flex-col justify-center items-center px-4 md:px-8 py-16 md:py-24 bg-gradient-to-b from-slate-50 to-white">
       <div className="max-w-7xl w-full flex flex-col gap-16 md:gap-24">
         {/* Section Header */}
         <header className="text-center mb-4">

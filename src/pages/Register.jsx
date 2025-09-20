@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const RegisterPage = () => {
   const [formData, setFormData] = useState({
     firstName: '',
-    lastName: '',
+
     email: '',
     password: '',
     confirmPassword: '',
@@ -49,80 +49,48 @@ const RegisterPage = () => {
   return (
     <div className="h-screen bg-gray-50 flex">
       <div className="w-full bg-white shadow-2xl overflow-hidden flex">
-        {/* Left side - Image Section with Overlay */}
-        <div 
-          className="hidden lg:flex lg:w-1/2 relative bg-cover bg-center bg-no-repeat"
+        {/* Left side - Image Section */}
+        <div
+          className="hidden lg:flex lg:w-1/2 relative bg-cover bg-center"
           style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80')`
+            backgroundImage: `url('https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=2069&q=80')`,
           }}
         >
-          {/* Dark overlay for better text readability */}
-          <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/60 to-black/50"></div>
-          
-          {/* Content overlay */}
-          <div className="relative z-10 text-white p-8 md:p-12 flex flex-col justify-center h-full">
-          <div className="flex items-center mb-8 gap-2">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 flex items-center justify-center">
-            <span className="text-white font-bold text-lg">WP</span>
-          </div>
-          <span className="text-xl md:text-2xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-            WorkspacePro
-          </span>
-        </div>
-            
-            <div className="mb-8">
-              <h2 className="text-3xl md:text-4xl font-bold mb-6 leading-tight">
-                Join Our 
-                <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent"> Community</span>
-              </h2>
-              <p className="text-white/90 mb-8 text-lg leading-relaxed">
-                Create an account to access thousands of premium venues for your special events
-              </p>
+          <div className="absolute inset-0 bg-gradient-to-br from-indigo-900/80 via-purple-800/70 to-indigo-700/60"></div>
+
+          <div className="relative z-10 text-white p-12 flex flex-col justify-center h-full">
+            <div className="flex items-center gap-3 mb-8">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 flex items-center justify-center text-xl font-bold">
+                WO
+              </div>
+              <span className="text-2xl font-bold">Wavora Online</span>
             </div>
-            
-            <div className="space-y-4 mb-10">
-              <div className="flex items-center gap-4 bg-white/10 backdrop-blur-sm rounded-lg p-3">
-                <div className="bg-green-500 rounded-full p-1">
-                  <CheckCircle className="h-4 w-4 text-white" />
+
+            <h2 className="text-4xl font-extrabold leading-tight mb-6">
+              Join our{" "}
+              <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                Community
+              </span>
+            </h2>
+            <p className="text-lg text-white/90 mb-10">
+              Create an account to access thousands of premium venues for your
+              special events.
+            </p>
+
+            <div className="space-y-4">
+              {["Personalized mentor & advisor matching","Track and compare growth milestones","Exclusive access to funding opportunities & industry partners","Seamless access to labs, co-working, and incubator resources"
+              ].map((feature, i) => (
+                <div
+                  key={i}
+                  className="flex items-center gap-3 bg-white/10 rounded-lg p-3 backdrop-blur-sm"
+                >
+                  <CheckCircle className="h-5 w-5 text-green-400" />
+                  <span>{feature}</span>
                 </div>
-                <span className="text-white/95">Personalized venue recommendations</span>
-              </div>
-              <div className="flex items-center gap-4 bg-white/10 backdrop-blur-sm rounded-lg p-3">
-                <div className="bg-green-500 rounded-full p-1">
-                  <CheckCircle className="h-4 w-4 text-white" />
-                </div>
-                <span className="text-white/95">Save and compare favorite venues</span>
-              </div>
-              <div className="flex items-center gap-4 bg-white/10 backdrop-blur-sm rounded-lg p-3">
-                <div className="bg-green-500 rounded-full p-1">
-                  <CheckCircle className="h-4 w-4 text-white" />
-                </div>
-                <span className="text-white/95">Access to exclusive member offers</span>
-              </div>
-              <div className="flex items-center gap-4 bg-white/10 backdrop-blur-sm rounded-lg p-3">
-                <div className="bg-green-500 rounded-full p-1">
-                  <CheckCircle className="h-4 w-4 text-white" />
-                </div>
-                <span className="text-white/95">Streamlined booking process</span>
-              </div>
-            </div>
-            
-            <div className="bg-white/15 backdrop-blur-md p-6 rounded-xl border border-white/20">
-              <div className="flex items-start gap-4">
-                <div className="bg-white/20 rounded-full p-2 mt-1">
-                  <span className="text-2xl">💬</span>
-                </div>
-                <div>
-                  <p className="text-white/95 italic text-base leading-relaxed">
-                    "I found the perfect wedding venue through EventBooker. The process was seamless from booking to our big day!"
-                  </p>
-                  <p className="text-white/80 text-sm mt-3 font-medium">— Michael & Lisa, Newlyweds</p>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
-        
         {/* Right side - Registration Form */}
         <div className="w-full lg:w-1/2 h-screen overflow-y-auto">
           <div className="p-8 md:p-12 flex flex-col justify-center min-h-full">
@@ -131,9 +99,8 @@ const RegisterPage = () => {
               <p className="text-gray-600">Fill in your details to get started</p>
             </div>
             
-            <div className="space-y-5">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
+            <div className="space-y-3">
+            <div>
                   <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-2">
                     First Name
                   </label>
@@ -153,28 +120,6 @@ const RegisterPage = () => {
                     />
                   </div>
                 </div>
-                
-                <div>
-                  <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-2">
-                    Last Name
-                  </label>
-                  <div className="relative">
-                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                      <User className="h-5 w-5 text-gray-400" />
-                    </div>
-                    <input
-                      id="lastName"
-                      name="lastName"
-                      type="text"
-                      value={formData.lastName}
-                      onChange={handleChange}
-                      className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
-                      placeholder="Last name"
-                      required
-                    />
-                  </div>
-                </div>
-              </div>
               
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
@@ -300,7 +245,7 @@ const RegisterPage = () => {
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-75 disabled:cursor-not-allowed transition-all transform hover:scale-[1.02]"
+                  className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white  bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-blue-700 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-75 disabled:cursor-not-allowed transition-all transform hover:scale-[1.02]"
                 >
                   {isLoading ? 'Creating account...' : 'Create Account'}
                 </button>

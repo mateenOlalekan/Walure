@@ -48,12 +48,12 @@ const AdminLoginPage = () => {
           <div className="absolute inset-0 bg-gradient-to-br from-black/90 via-black/70 to-black/60"></div>
 
           <div className="relative z-10 text-white p-8 md:p-12 flex flex-col justify-center h-full">
-            <div className="flex items-center mb-10 gap-2">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-red-600 to-purple-700 flex items-center justify-center">
-                <Shield className="text-white h-5 w-5" />
-              </div>
-              <span className="text-xl md:text-2xl font-extrabold bg-gradient-to-r from-red-600 to-purple-600 bg-clip-text text-transparent">
-                TechBunker Admin
+          <div className="flex items-center">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 flex items-center justify-center">
+            <span className="text-white font-bold text-lg">WO</span>
+          </div>
+              <span className="text-2xl font-bold bg-gradient-to-r from-white to-purple-200 bg-clip-text text-transparent">
+                Wavora Online
               </span>
             </div>
 

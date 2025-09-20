@@ -52,10 +52,10 @@ const LoginPage = () => {
           <div className="relative z-10 text-white p-8 md:p-12 flex flex-col justify-center h-full">
             <div className="flex items-center mb-8 gap-2">
               <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 flex items-center justify-center">
-                <span className="text-white font-bold text-lg">TB</span>
+                <span className="text-white font-bold text-lg">WA</span>
               </div>
               <span className="text-xl md:text-2xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                TechBunker
+              Wavora Online
               </span>
             </div>
             
